@@ -8,13 +8,14 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import random
 
 winFlag = 0
-if(os.name == 'nt'):
+if (os.name == 'nt'):
     print("Windows")
     filename = 'Config/configWin.json'
     winFlag = 1
-elif(os.name == 'posix'):
+elif (os.name == 'posix'):
     print("linux")
     filename = 'Config/configLin.json'
 
@@ -32,22 +33,30 @@ dataRead = json.load(
 
 
 iLoad = configRead['initialRun']
-if(iLoad):
+if (iLoad):
     chPath = input("Enter the path to chrome\n")
-    if(chPath == "" or chPath == " "):
+    if (chPath == "" or chPath == " "):
         exit('no data entered')
     else:
-        if(os.path.exists(chPath)):
+        if (os.path.exists(chPath)):
             print('Chrom path Saved')
         else:
             exit('File not found')
+    imgPath = input("Enter the path to image folder\n")
+    if (imgPath == "" or imgPath == " "):
+        exit('no data entered')
+    else:
+        if (os.path.exists(imgPath)):
+            print('Image path Saved')
+        else:
+            exit('File not found')
     uname = input("Enter the username\n")
-    if(uname == "" or uname == " "):
+    if (uname == "" or uname == " "):
         exit('no data entered')
     else:
         print('Username Saved')
     pwd = input("Enter the password\n")
-    if(pwd == "" or pwd == " "):
+    if (pwd == "" or pwd == " "):
         exit('no data entered')
     else:
         print('Password Saved')
@@ -56,16 +65,22 @@ if(iLoad):
     data['chromePath'] = chPath
     data['uname'] = uname
     data['passwd'] = pwd
+    data['image'] = imgPath
     writeToJSONFile('./', filename, data)
     exit('Data saved please rerun the program to load the data')
 
 else:
     print("False")
     chPath = configRead['chromePath']
-    if(os.path.exists(chPath)):
+    if (os.path.exists(chPath)):
         print('Chrome Found')
     else:
         exit('File not found not found')
+    imgPath = configRead['image']
+    if (os.path.exists(imgPath)):
+        print('Image Found')
+    else:
+        exit('Image not found not found')
     uname = configRead['uname']
     passwd = configRead['passwd']
     price = '45'
@@ -119,19 +134,24 @@ class facebook:
 
         # add photo
         bot.implicitly_wait(20)
-        multiTab(10)
+        multiTab(9)
         pyautogui.press('enter')
         t.sleep(2)
-        pyautogui.typewrite(
-            dataRead['image'], interval=0.2)
+
+        files = os.listdir(configRead['image'])
+        images = [f for f in files if f.endswith(".jpg") or f.endswith(".png")]
+        random_img = random.choice(images)
+        print(random_img)
+        image = configRead["image"]+'\\'+random_img
+        pyautogui.typewrite(image, interval=0.2)
         pyautogui.press('enter')
 
         # add title
         multiTab(3)
         t.sleep(5)
-        for title in dataRead['title']:
-            print(title)
-            pyautogui.typewrite(title, interval=0.2)
+        random_title = random.choice(dataRead['title'])
+        print(random_title)
+        pyautogui.typewrite(random_title, interval=0.2)
 
         # add price
         pyautogui.press('tab')
@@ -149,26 +169,26 @@ class facebook:
         pyautogui.press('down')
         pyautogui.press('enter')
 
-        # add Brand
+        # add description
         pyautogui.press('tab')
+        random_desc = random.choice(dataRead['description'])
+        print(random_desc)
+        pyautogui.typewrite(random_desc, interval=0.2)
+        pyautogui.press('tab')
+
+        # add Brand
         pyautogui.press('tab')
         pyautogui.typewrite('Internet', interval=0.2)
 
-        # add description
-        pyautogui.press('tab')
-        for desc in dataRead['description']:
-            # Traverse through all the items in the tags array
-            print(desc)
-            pyautogui.typewrite(desc, interval=0.2)
-        pyautogui.press('tab')
-        pyautogui.press('tab')
-
         # add tags
         # Traverse through all the items in the tags array
+        multiTab(2)
+        pyautogui.hotkey('shift', 'tab')
         for tag in dataRead['tags']:
             print(tag)
             pyautogui.typewrite(tag, interval=0.2)
             pyautogui.press('enter')
+        pyautogui.press('tab')
         pyautogui.press('tab')
 
         # add location
@@ -176,13 +196,13 @@ class facebook:
         pyautogui.press('down')
         pyautogui.press('tab')
 
-        # add delivery method
-        multiTab(5)
-        pyautogui.press('enter')
-        pyautogui.press('tab')
+        # # add delivery method
+        # multiTab(5)
+        # pyautogui.press('enter')
+        # pyautogui.press('tab')
 
         # press next btn
-        multiTab(3)
+        multiTab(4)
         pyautogui.press('enter')
 
 

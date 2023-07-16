@@ -1,1 +1,7 @@
-{ "initialRun": true }
+{
+	"initialRun": false,
+	"chromePath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+	"uname": "laser-aqueous-0z@icloud.com",
+	"passwd": "bizFAcebook@2023 ",
+	"image": "C:\\Users\\Jaspreet\\Documents\\GitHub\\Facebook Bot\\assets"
+}
