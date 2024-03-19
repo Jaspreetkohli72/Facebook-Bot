@@ -90,7 +90,12 @@ botOptions = Options()
 botOptions.add_argument('--use-fake-ui-for-media-stream')
 botOptions.add_argument('--disable-infobars')
 botOptions.add_argument('--disable-notifications')
+botOptions.add_argument('--disable-blink-features=AutomationControlled')
+botOptions.add_experimental_option('excludeSwitches', ['enable-automation'])
 botOptions.binary_location = chPath
+prefs = {"credentials_enable_service": False,
+         "profile.password_manager_enabled": False}
+botOptions.add_experimental_option("prefs", prefs)
 
 
 def multiTab(num):
@@ -134,7 +139,7 @@ class facebook:
 
         # add photo
         bot.implicitly_wait(20)
-        multiTab(9)
+        multiTab(10)
         pyautogui.press('enter')
         t.sleep(2)
 
@@ -147,7 +152,7 @@ class facebook:
         pyautogui.press('enter')
 
         # add title
-        multiTab(3)
+        multiTab(5)
         t.sleep(5)
         random_title = random.choice(dataRead['title'])
         print(random_title)
@@ -202,12 +207,19 @@ class facebook:
         # pyautogui.press('tab')
 
         # press next btn
-        multiTab(4)
+        multiTab(22)
         pyautogui.press('enter')
+
+        # # publish
+        # multiTab(17)
+        # pyautogui.press('enter')
 
 
 fb = facebook()
-fb.login()
+timesRun = input('Enter the amount of posts you want to create\n')
+
+for i in range(0, timesRun+1):
+    fb.login()
 
 
 t.sleep(20000)

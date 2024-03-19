@@ -19,7 +19,7 @@
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/Jaspreet/Documents/GitHub/Facebook Bot/toExe/Logo.ico"
+   "value": "C:/Users/Jaspreet/Documents/GitHub/Facebook Bot/toExe/Logo.old.ico"
   },
   {
    "optionDest": "name",
@@ -32,6 +32,10 @@
   {
    "optionDest": "clean_build",
    "value": false
+  },
+  {
+   "optionDest": "splash",
+   "value": "C:/Users/Jaspreet/Documents/GitHub/Facebook Bot/toExe/splash screen.png"
   },
   {
    "optionDest": "strip",
